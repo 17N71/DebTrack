@@ -3,6 +3,7 @@
  * Session from getServerSession; userId from session for all user-scoped operations.
  */
 
+import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth-options";
 
@@ -23,9 +24,9 @@ export async function getSessionUser(): Promise<SessionUser | null> {
   };
 }
 
-/** Returns the current user's id. Throws if not authenticated (use in protected routes/actions only). */
+/** Returns the current user's id. Redirects to /signin if not authenticated. */
 export async function getDefaultUserId(): Promise<string> {
   const user = await getSessionUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) redirect("/signin");
   return user.id;
 }
