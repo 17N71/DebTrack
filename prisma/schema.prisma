@@ -1,0 +1,105 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           String     @id @default(cuid())
+  email        String     @unique
+  passwordHash String     @map("passwordhash")
+  name         String?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  contacts     Contact[]
+  currencies   Currency[]
+  debts        Debt[]
+  auditLogs    AuditLog[]
+}
+
+model Currency {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  code      String   // e.g. USD, EUR
+  name      String   // e.g. US Dollar
+  createdAt DateTime @default(now())
+
+  @@unique([userId, code])
+  @@index([userId])
+}
+
+model Contact {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name      String
+  email     String?
+  phone     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  debts     Debt[]
+}
+
+model Debt {
+  id              String     @id @default(cuid())
+  userId          String
+  user            User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  contactId       String?
+  contact         Contact?   @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  type            DebtType
+  title           String
+  principalAmount Decimal    @db.Decimal(19, 4)
+  currency        String     @default("USD")
+  startDate       DateTime   @db.Date
+  dueDate         DateTime?  @db.Date
+  interestRate    Decimal?   @db.Decimal(5, 2)
+  notes           String?
+  status          DebtStatus @default(OPEN)
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+  payments        Payment[]
+
+  @@index([userId])
+  @@index([contactId])
+  @@index([status, dueDate])
+}
+
+model Payment {
+  id        String   @id @default(cuid())
+  debtId    String
+  debt      Debt     @relation(fields: [debtId], references: [id], onDelete: Cascade)
+  amount    Decimal  @db.Decimal(19, 4)
+  date      DateTime @db.Date
+  method    String?
+  note      String?
+  createdAt DateTime @default(now())
+
+  @@index([debtId])
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  entityType String
+  entityId   String
+  action     String
+  details    Json?
+  createdAt  DateTime @default(now())
+
+  @@index([userId])
+}
+
+enum DebtType {
+  I_OWE
+  OWED_TO_ME
+}
+
+enum DebtStatus {
+  OPEN
+  CLOSED
+  ARCHIVED
+}

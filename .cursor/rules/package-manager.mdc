@@ -1,0 +1,4 @@
+---
+alwaysApply: true
+---
+use instead of npm,yarn or pnpm only bun as it fast and project is developed by itself

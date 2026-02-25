@@ -1,0 +1,19 @@
+# Optional: local PostgreSQL for development (use Neon in production)
+# Start: docker compose up -d
+# Stop:  docker compose down
+# Use DATABASE_URL=postgresql://postgres:postgres@localhost:5432/debtrack?schema=public
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: debtrack
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata: {}

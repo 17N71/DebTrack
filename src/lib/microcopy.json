@@ -1,0 +1,51 @@
+{
+  "addDebt": {
+    "title": "Add New Debt Entry",
+    "subtitle": "Record a new financial obligation",
+    "createButton": "Create Debt Entry",
+    "cancelButton": "Cancel",
+    "contactLabel": "Contact",
+    "contactPlaceholder": "Select a contact or add new...",
+    "addNewContact": "+ Add New Contact",
+    "principalLabel": "Principal Amount",
+    "currencyLabel": "Currency",
+    "dueDateLabel": "Due Date",
+    "dueDateOptional": "(Optional)",
+    "interestLabel": "Interest Rate (%)",
+    "notesLabel": "Notes",
+    "notesPlaceholder": "Describe the purpose of this debt..."
+  },
+  "addPayment": {
+    "title": "Record Payment",
+    "subtitle": "Payment for this debt",
+    "currentBalance": "Current Balance",
+    "newBalance": "New Balance",
+    "amountLabel": "Amount",
+    "dateLabel": "Payment Date",
+    "notesLabel": "Notes (Optional)",
+    "notesPlaceholder": "Add details about this payment...",
+    "submitButton": "Record Payment",
+    "cancelButton": "Cancel"
+  },
+  "emptyStates": {
+    "noDebts": "No debts yet",
+    "noDebtsHint": "Add your first debt to start tracking.",
+    "noPayments": "No payments yet",
+    "noPaymentsHint": "Record a payment above.",
+    "noContacts": "No contacts yet",
+    "noContactsHint": "Add a contact to link them to debts.",
+    "noDebtsForContact": "No debts linked to this contact."
+  },
+  "warnings": {
+    "deletePayment": "Are you sure you want to delete this payment? The remaining balance will be recalculated.",
+    "closeDebt": "Closing this debt will mark it as settled. You can reopen it later.",
+    "overdue": "This debt is overdue. Consider making a payment or updating the due date."
+  },
+  "success": {
+    "debtCreated": "Debt created.",
+    "debtUpdated": "Debt updated.",
+    "paymentRecorded": "Payment recorded.",
+    "contactAdded": "Contact added.",
+    "contactUpdated": "Contact updated."
+  }
+}

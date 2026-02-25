@@ -1,0 +1,5 @@
+id,title,type,contact,principalAmount,currency,startDate,dueDate,status,remainingBalance
+cmm0nq9a30006u0s05a28gdm8,Մարթաի վարձի համար,OWED_TO_ME,Հարութ,58000,AMD,2025-11-15,2026-04-30,OPEN,18000
+cmm0nbv6l0002u0s0wuf88ndq,Անձական պարտք Դավոին մեքենայի համար ,OWED_TO_ME,,1402000,AMD,2026-02-05,2026-08-31,OPEN,1402000
+cmm0nlxmi0003u0s0ujcauidg,Անիին հեռախոսի համար,OWED_TO_ME,Դավո,240000,AMD,2025-11-20,2026-08-31,OPEN,140000
+cmm0o30zm000au0s0zc01xonq,սաղ ու խառը պարտքերի մարում,OWED_TO_ME,Արման,100000,AMD,2015-10-01,2026-12-31,OPEN,100000
