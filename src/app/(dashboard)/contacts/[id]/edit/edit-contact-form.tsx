@@ -28,8 +28,8 @@ export function EditContactForm({ contact }: { contact: Contact }) {
   async function onSubmit(data: UpdateContactInput) {
     const result = await updateContact(contact.id, data);
     if (result.ok) {
-      router.push(`/contacts/${contact.id}`);
       router.refresh();
+      router.push("/contacts");
     }
   }
 

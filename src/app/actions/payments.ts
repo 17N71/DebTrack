@@ -1,6 +1,7 @@
 "use server";
 
 import { getDefaultUserId } from "@/lib/auth";
+import { remainingBalance } from "@/lib/calculations";
 import { prisma } from "@/lib/db";
 import type {
   CreatePaymentInput,
@@ -19,6 +20,7 @@ export async function createPayment(form: CreatePaymentInput) {
   const userId = await getDefaultUserId();
   const debt = await prisma.debt.findFirst({
     where: { id: data.debtId, userId },
+    include: { payments: true },
   });
   if (!debt) return { ok: false as const, error: "Debt not found" };
 
@@ -32,6 +34,20 @@ export async function createPayment(form: CreatePaymentInput) {
         note: data.note ?? null,
       },
     });
+
+    // Auto-archive if fully paid
+    const allPayments = [...debt.payments, created];
+    const remaining = remainingBalance(
+      Number(debt.principalAmount),
+      allPayments,
+    );
+    if (remaining <= 0) {
+      await tx.debt.update({
+        where: { id: data.debtId },
+        data: { status: "ARCHIVED" },
+      });
+    }
+
     return created;
   });
   return { ok: true as const, payment };

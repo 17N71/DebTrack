@@ -18,6 +18,12 @@ const nav = [
     icon: "request_quote",
     type: "OWED_TO_ME",
   },
+  {
+    href: "/debts/archived",
+    label: "Archived",
+    icon: "inventory_2",
+    exact: true,
+  },
   { href: "/contacts", label: "Contacts", icon: "group", exact: true },
   { href: "/reports", label: "Reports", icon: "assessment", exact: true },
   { href: "/settings", label: "Settings", icon: "settings", exact: true },

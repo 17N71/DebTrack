@@ -75,8 +75,8 @@ export function EditDebtForm({
   async function onSubmit(data: UpdateDebtInput) {
     const result = await updateDebt(debt.id, data);
     if (result.ok) {
-      router.push(`/debts/${debt.id}`);
       router.refresh();
+      router.push(`/debts?type=${data.type ?? debt.type}`);
     }
   }
 

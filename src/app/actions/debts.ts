@@ -101,6 +101,28 @@ export async function deleteDebt(id: string) {
   return { ok: true as const };
 }
 
+export async function archiveDebt(id: string) {
+  const userId = await getDefaultUserId();
+  const existing = await prisma.debt.findFirst({ where: { id, userId } });
+  if (!existing) return { ok: false as const, error: "Debt not found" };
+  await prisma.debt.update({
+    where: { id },
+    data: { status: "ARCHIVED" },
+  });
+  return { ok: true as const };
+}
+
+export async function unarchiveDebt(id: string) {
+  const userId = await getDefaultUserId();
+  const existing = await prisma.debt.findFirst({ where: { id, userId } });
+  if (!existing) return { ok: false as const, error: "Debt not found" };
+  await prisma.debt.update({
+    where: { id },
+    data: { status: "OPEN" },
+  });
+  return { ok: true as const };
+}
+
 export async function getDebtsList(params: {
   type?: "I_OWE" | "OWED_TO_ME";
   status?: "OPEN" | "CLOSED" | "ARCHIVED";

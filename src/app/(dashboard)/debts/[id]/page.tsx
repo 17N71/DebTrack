@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getDebt } from "@/app/actions/debts";
 import { isOverdue, paidTotal, remainingBalance } from "@/lib/calculations";
 import { formatCurrency } from "@/lib/format";
+import { ArchiveDebtButton } from "./archive-debt-button";
 import { DeleteDebtButton } from "./delete-debt-button";
 import { DeletePaymentButton } from "./delete-payment-button";
 import { RecordPaymentForm } from "./record-payment-form";
@@ -62,6 +63,11 @@ export default async function DebtDetailPage({
               currency={debt.currency}
             />
           )}
+          <ArchiveDebtButton
+            debtId={id}
+            debtType={debt.type}
+            isArchived={debt.status === "ARCHIVED"}
+          />
           <DeleteDebtButton debtId={id} />
         </div>
       </div>

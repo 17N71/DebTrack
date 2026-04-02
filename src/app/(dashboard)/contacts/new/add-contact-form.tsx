@@ -22,8 +22,8 @@ export function AddContactForm() {
   async function onSubmit(data: CreateContactInput) {
     const result = await createContact(data);
     if (result.ok) {
-      router.push(`/contacts/${result.contact.id}`);
       router.refresh();
+      router.push("/contacts");
     }
   }
 

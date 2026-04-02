@@ -35,8 +35,8 @@ export function AddDebtForm({
   async function onSubmit(data: CreateDebtInput) {
     const result = await createDebt(data);
     if (result.ok) {
-      router.push(`/debts/${result.debt.id}`);
       router.refresh();
+      router.push(`/debts?type=${data.type}`);
     } else {
       console.error(result.error);
     }
